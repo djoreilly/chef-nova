@@ -63,7 +63,7 @@ sql_connection=mysql://<%= @user %>:<%= @passwd %>@<%= @db_ipaddress %>/<%= @db_
 connection_type=libvirt
 libvirt_type=<%= @virt_type %>
 # Command prefix to use for running commands as root (default: sudo)
-root_helper=sudo nova-rootwrap
+root_helper=sudo nova-rootwrap /etc/nova/rootwrap.conf
 # Should unused base images be removed? (default: false)
 remove_unused_base_images=<%= @remove_unused_base_images %>
 # Unused resized base images younger than this will not be removed (default: 3600)

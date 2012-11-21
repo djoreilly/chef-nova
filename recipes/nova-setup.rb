@@ -46,7 +46,11 @@ create_db_and_user("mysql",
 execute "nova-manage db sync" do
   command "nova-manage db sync"
   action :run
-  not_if "nova-manage db version && test $(nova-manage db version) -gt 0"
+  # hvolkmer: I don't see a need for a guard here: The command is idempodent
+  # anyway: It does nothing when the db is already at current version.
+  # This guard would not decrease runtime as nova-manage db version would be
+  # called
+  #not_if "nova-manage db version && test $(nova-manage db version) -gt 0"
 end
 
 node["nova"]["networks"].each do |net|

@@ -39,10 +39,11 @@ nova_compute_packages.each do |pkg|
   end
 end
 
-cookbook_file "/etc/nova/nova-compute.conf" do
-  source "nova-compute.conf"
-  mode "0644"
-  action :create
+# hvolkmer: Many of the config options in nova.conf are needed by nova compute.
+# Duplicating them in another template is not a good approach in my opinion. 
+# Just linking the file does work and does not duplicate anything in the cookbook.
+link "/etc/nova/nova-compute.conf" do
+  to "/etc/nova/nova.conf"
 end
 
 service "nova-compute" do
