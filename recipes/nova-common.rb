@@ -122,6 +122,13 @@ template "/etc/nova/nova.conf" do
   )
 end
 
+template "/etc/nova/logging.conf" do
+  source "logging.conf"
+  owner "root"
+  group "root"
+  mode "0644"
+end
+
 # TODO: need to re-evaluate this for accuracy
 template "/root/openrc" do
   source "openrc.erb"
