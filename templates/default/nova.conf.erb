@@ -17,7 +17,8 @@ syslog_log_facility=<%= @log_facility %>
 <% end %>
 state_path=/var/lib/nova
 lock_path=/var/lock/nova
-log_config=/etc/nova/logging.conf
+# we have to find out how this works
+#log_config=/etc/nova/logging.conf
 
 ##### RABBITMQ #####
 rabbit_password=guest
