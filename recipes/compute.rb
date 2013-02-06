@@ -23,14 +23,8 @@ include_recipe "nova::network"
 
 platform_options = node["nova"]["platform"]
 nova_compute_packages = platform_options["nova_compute_packages"]
-
-if platform?(%w(ubuntu))
-  if node["nova"]["libvirt"]["virt_type"] == "kvm"
-    nova_compute_packages << "nova-compute-kvm"
-  elsif node["nova"]["libvirt"]["virt_type"] == "qemu"
-    nova_compute_packages << "nova-compute-qemu"
-  end
-end
+nova_compute_packages += platform_options["nova_virt_type_packages"][node["nova"]["libvirt"]["virt_type"]]
+nova_compute_packages.compact!
 
 nova_compute_packages.each do |pkg|
   package pkg do
