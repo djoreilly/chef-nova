@@ -48,6 +48,7 @@ end
 
 service "nova-compute" do
   service_name platform_options["nova_compute_service"]
+  provider Chef::Provider::Service::Upstart if platform?("ubuntu")
   supports :status => true, :restart => true
   action :enable
   subscribes :restart, resources(:template => "/etc/nova/nova.conf"), :delayed

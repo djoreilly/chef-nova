@@ -30,6 +30,7 @@ end
 
 service "nova-network" do
   service_name platform_options["nova_network_service"]
+  provider Chef::Provider::Service::Upstart if platform?("ubuntu")
   supports :status => true, :restart => true
   action :enable
   subscribes :restart, resources(:template => "/etc/nova/nova.conf"), :delayed
